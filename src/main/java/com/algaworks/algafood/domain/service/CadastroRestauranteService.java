@@ -17,7 +17,8 @@ public class CadastroRestauranteService {
     @Autowired
     private RestauranteRepository restauranteRepository;
 
-    @Autowired CozinhaRepository cozinhaRepository;
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
 
     public Restaurante salvar (Restaurante restaurante){
         Long cozinhaId = restaurante.getCozinha().getId();
@@ -30,6 +31,15 @@ public class CadastroRestauranteService {
         restaurante.setCozinha(cozinha);
 
         return restauranteRepository.salvar(restaurante);
+    }
+
+    public void excluir(Long restauranteId){
+        try {
+            restauranteRepository.remover(restauranteId);
+        } catch (EmptyResultDataAccessException e){
+            throw new EntidadeNaoEncontradaException(
+                    String.format("Nao existe um cadastro de restaurente com o codigo %d", restauranteId));
+        }
     }
 
 
