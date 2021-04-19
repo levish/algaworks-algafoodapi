@@ -11,6 +11,6 @@ public interface EstadoRepository {
     List<Estado> listar();
     Estado buscar(long id);
     Estado salvar(Estado estado);
-    void remover (Estado estado);
+    void remover (Long id);
 
 }
