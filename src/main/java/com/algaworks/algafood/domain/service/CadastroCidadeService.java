@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CadastroCidadeService {
 
@@ -20,20 +22,20 @@ public class CadastroCidadeService {
 
     public Cidade salvar(Cidade cidade){
         Long estadoId = cidade.getEstado().getId();
-        Estado estado = estadoRepository.buscar(estadoId);
+        Optional <Estado> estado = estadoRepository.findById(estadoId);
 
-        if (estado == null){
+        if (estado.isEmpty()){
             throw new EntidadeNaoEncontradaException(
                     String.format("Nao existe cadastro de estado com codigo %d", estadoId));
         }
-        cidade.setEstado(estado);
+        cidade.setEstado(estado.get());
 
-        return cidadeRepository.salvar(cidade);
+        return cidadeRepository.save(cidade);
     }
 
     public void excluir(Long cidadeId){
         try{
-            cidadeRepository.remover(cidadeId);
+            cidadeRepository.deleteById(cidadeId);
         } catch (EmptyResultDataAccessException e){
             throw new EntidadeNaoEncontradaException(
                     String.format("Nao existe um cadastro de cozinha com o codigo %d", cidadeId));
