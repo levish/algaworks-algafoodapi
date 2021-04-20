@@ -42,6 +42,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
         if (cozinha == null){
             throw new EmptyResultDataAccessException(1);
         }
+
         manager.remove(cozinha);
     }
 }
