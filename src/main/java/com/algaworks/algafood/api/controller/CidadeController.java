@@ -29,48 +29,26 @@ public class CidadeController {
     }
 
     @GetMapping("/{cidadeId}")
-    public ResponseEntity<Cidade> buscar(@PathVariable Long cidadeId){
-        Optional <Cidade> cidade = cidadeRepository.findById(cidadeId);
-
-
-        if (cidade.isPresent()){
-            return ResponseEntity.ok(cidade.get());
-        }
-        return ResponseEntity.notFound().build();
+    public Cidade buscar(@PathVariable Long cidadeId){
+        return cadastroCidade.buscarOuFalhar(cidadeId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
-        try {
-            cidade = cadastroCidade.salvar(cidade);
-            return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    public Cidade adicionar(@RequestBody Cidade cidade) {
+        return cadastroCidade.salvar(cidade);
     }
 
     @PutMapping("/{cidadeId}")
-    public ResponseEntity<Cidade> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
-        Optional <Cidade> cidadeAtual = cidadeRepository.findById(cidadeId);
-
-    if (cidadeAtual.isPresent()){
-        BeanUtils.copyProperties(cidade, cidadeAtual.get(),"id");
-        Cidade cidadeSalva = cidadeRepository.save(cidadeAtual.get());
-        return ResponseEntity.ok(cidadeSalva);
-    }
-    return ResponseEntity.notFound().build();
-
+    public Cidade atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
+        Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
+        BeanUtils.copyProperties(cidade, cidadeAtual,"id");
+        return cadastroCidade.salvar(cidadeAtual);
     }
 
     @DeleteMapping("/{cidadeId}")
-    public ResponseEntity<?> remover(@PathVariable Long cidadeId){
-        try {
+    public void remover(@PathVariable Long cidadeId){
             cadastroCidade.excluir(cidadeId);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e){
-            return ResponseEntity.notFound().build();
-        }
     }
     }
 
