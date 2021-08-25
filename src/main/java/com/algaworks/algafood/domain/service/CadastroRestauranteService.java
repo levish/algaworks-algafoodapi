@@ -2,6 +2,7 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exceptions.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exceptions.EntidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exceptions.RestauranteNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroRestauranteService {
 
-    public static final String MSG_RESTAURANTE_NAO_ENCONTRADO = "Nao existe um cadastro de restaurente com o codigo %d";
+
     @Autowired
     private RestauranteRepository restauranteRepository;
 
@@ -34,14 +35,13 @@ public class CadastroRestauranteService {
         try {
             restauranteRepository.deleteById(restauranteId);
         } catch (EmptyResultDataAccessException e){
-            throw new EntidadeNaoEncontradaException(
-            String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId));
+            throw new RestauranteNaoEncontradoException(restauranteId);
         }
     }
 
     public Restaurante buscarOuFalhar(Long restauranteId){
         return restauranteRepository.findById(restauranteId).orElseThrow(
-                ()-> new EntidadeNaoEncontradaException(String.format(MSG_RESTAURANTE_NAO_ENCONTRADO,restauranteId)));
+                ()-> new RestauranteNaoEncontradoException(restauranteId));
     }
 
 
