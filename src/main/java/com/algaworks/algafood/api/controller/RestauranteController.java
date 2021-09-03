@@ -8,6 +8,7 @@ import com.algaworks.algafood.domain.exceptions.NegocioException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,6 +66,8 @@ public class RestauranteController {
     public void remover(@PathVariable Long restauranteId){
         cadastroRestaurante.excluir(restauranteId);
     }
+
+    //TODO adicionar excecao quando criar atualizacao parcial
 
 
 

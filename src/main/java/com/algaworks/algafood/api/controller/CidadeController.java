@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cidades")
@@ -52,7 +51,7 @@ public class CidadeController {
             BeanUtils.copyProperties(cidade, cidadeAtual,"id");
             return cadastroCidade.salvar(cidadeAtual);
         } catch (EstadoNaoEncontradoException e){
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException(e.getMessage(),e);
         }
     }
 
@@ -60,5 +59,9 @@ public class CidadeController {
     public void remover(@PathVariable Long cidadeId){
             cadastroCidade.excluir(cidadeId);
     }
+
+
+
+
     }
 
