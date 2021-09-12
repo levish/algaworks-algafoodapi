@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +34,13 @@ public class Pedido {
     private LocalDateTime dataCriacao;
 
     @Column(columnDefinition = "datetime")
-    private LocalDateTime dataConfirmacao;
+    private OffsetDateTime dataConfirmacao;
 
     @Column(columnDefinition = "datetime")
-    private LocalDateTime dataCancelamento;
+    private OffsetDateTime dataCancelamento;
 
     @Column(columnDefinition = "datetime")
-    private LocalDateTime dataEntrega;
+    private OffsetDateTime dataEntrega;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (nullable = false)
