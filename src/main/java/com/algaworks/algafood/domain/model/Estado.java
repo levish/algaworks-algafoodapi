@@ -1,6 +1,5 @@
 package com.algaworks.algafood.domain.model;
 
-import com.algaworks.algafood.Groups;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +14,6 @@ public class Estado {
 
     @EqualsAndHashCode.Include
     @Id
-    @NotNull(groups = Groups.EstadoId.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

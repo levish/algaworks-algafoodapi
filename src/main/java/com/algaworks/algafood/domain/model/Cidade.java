@@ -1,6 +1,5 @@
 package com.algaworks.algafood.domain.model;
 
-import com.algaworks.algafood.Groups;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,7 +24,6 @@ public class Cidade {
     private String nome;
 
     @Valid
-    @ConvertGroup(to = Groups.EstadoId.class)
     @NotNull
     @ManyToOne
     @JoinColumn(nullable = false)

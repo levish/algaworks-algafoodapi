@@ -1,7 +1,5 @@
 package com.algaworks.algafood.domain.model;
 
-import com.algaworks.algafood.Groups;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,12 +16,10 @@ public class Cozinha {
 
     @EqualsAndHashCode.Include
     @Id
-    @NotNull(groups = Groups.CozinhaId.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Column(length = 30, nullable = false)
+    @Column(nullable = false)
     private String nome;
 
     @OneToMany(mappedBy = "cozinha")
